@@ -1,35 +1,22 @@
 """
-    Pragma module
+    Pragmas module
 """
-import pprint
-from typing import List, Dict, Optional
+from typing import Optional
 
 class Pragma():
-    def __init__(self):
-        self._name: Optional[str] = None
-        self._kind: Optional[str] = None
-        self._version: Optional[str] = None
+    def __init__(self, data):
+        self._name: Optional[str] = data['name']
+        self._kind: Optional[str] = data['type'] # PragmaDirective
+        self._version: Optional[str] = data['value']
 
     @property
     def name(self) -> Optional[str]:
         return self._name
 
-    @name.setter
-    def name(self, name: str):
-        self._name = name
-
     @property
     def kind(self) -> Optional[str]:
         return self._kind
 
-    @kind.setter
-    def kind(self, kind: str):
-        self._kind = kind
-
     @property
     def version(self) -> Optional[str]:
         return self._version
-
-    @version.setter
-    def version(self, version: str):
-        self._version = version
