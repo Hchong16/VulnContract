@@ -9,32 +9,24 @@ from declarations.contracts import Contract
 from declarations.imports import Import
 
 class SolidityFile:
-    def __init__(self):
+    def __init__(self, filename, file_path):
         # Track state of class. Invalid if parser fails.
         self.status = 'valid' 
 
-        self._filename: Optional[str] = None
-        self._file_path: Optional[str] = None
+        self._filename: Optional[str] = filename
+        self._file_path: Optional[str] = file_path
 
         self._pragmas: Dict[str, Pragma] = {}
-        self._imports: Dict[str, Import] = {} # Track imports here
+        self._imports: Dict[str, Import] = {}
         self._underlying_contracts: Dict[str, Contract] = {}
     
     @property
     def filename(self) -> Optional[str]:
         return self._filename
 
-    @filename.setter
-    def filename(self, filename: str):
-        self._filename = filename
-
     @property
     def file_path(self) -> Optional[str]:
         return self._file_path
-
-    @file_path.setter
-    def file_path(self, file_path: str):
-        self._file_path = file_path
 
     @property
     def pragmas(self) -> Dict[str, Pragma]:
@@ -85,7 +77,7 @@ class SolidityFile:
             # Create contract class for each underlying contracts in the file
             # Track all functions and variables within each subclass.
             for contract_name in self.source_unit_object.contracts.keys():
-                contract_obj = Contract(contract_name, self.source_unit_object)
+                contract_obj = Contract(contract_name, self.source_unit_object.contracts[contract_name])
                 self._underlying_contracts[contract_name] = contract_obj
         else: # Failed to parse file into an AST
             return
