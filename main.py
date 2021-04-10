@@ -14,17 +14,3 @@ if __name__ == "__main__":
 
     # Perform vulnerability detectors on smart contract 
     output = Suicidal().detect_driver(smart_contract)
-
-
-
-
-
-
-
-
-
-
-
-    # with open('data/parsed.json', 'w') as outfile:
-    #     json.dump(smart_contract.source_unit, outfile, indent=4)
-    #     json.dump(smart_contract.source_unit, outfile)

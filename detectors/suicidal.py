@@ -14,11 +14,19 @@ class Suicidal():
         # Iterate through all defined contracts in the Solidity File
         for contract_obj in underlying_contracts.values():
             functions = self.detect_suicidal(contract_obj)
+            for function_obj in functions:
+                info = [function_obj.name, " allows anyone to terminate the contract\n"]
+                results.append(info)
+
+        return results
 
     def detect_suicidal(self, contract):
         """
         Iterate through all defined functions within the contract and flag any functions 
         suspectable to a suicidal attack.
+
+        Returns:
+            (bool): True if the function is suicidal
         """
         suspectible_functions = []
         for function_obj in contract.functions.values():
@@ -32,9 +40,10 @@ class Suicidal():
            return False
 
         calls = [c.name for c in f.identifiers]
+        if not ("suicide" in calls or "selfdestruct" in calls):
+            return False
         
-        # If the function is protected using a required(msg.sender), this is
-        # a protected suicide call.
-        
-        if ("suicide" in calls or "selfdestruct" in calls):
-            return True
+        if f.is_protected:
+            return False
+
+        return True
