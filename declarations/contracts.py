@@ -19,6 +19,15 @@ class Contract():
     def name(self) -> Optional[str]:
         return self._name
 
+    @property
+    def kind(self) -> Optional[str]:
+        return self._kind
+
+    @property
+    def functions(self) -> Dict[str, Function]:
+        """Return dict of defined functions in the contract"""
+        return self._functions
+
     def parse_functions(self):
         # Create function class for each underlying function within the contract
         for function_name in self.contract_data.functions.keys():

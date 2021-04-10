@@ -1,17 +1,18 @@
 pragma solidity 0.8.1;
 
 contract Contract{
-    constructor() public {
-        data = 1;
-    }
-    
-    function kill() public{
+    function protected_kill() public{
+        require(msg.sender == owner);
         selfdestruct(msg.sender);
     }
 }
 
 contract Test{
-    function test() public{
-        return 1;
+    function bad_kill() public{
+        address a = msg.sender;
+        require(a == owner);
+
+
+        selfdestruct(msg.sender);
     }
 }
