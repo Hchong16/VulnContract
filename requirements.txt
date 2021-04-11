@@ -1,1 +1,3 @@
-solidity_parser
+solidity_parser >=0.0.7
+configparser >=3.5.0
+Flask >= 1.1.1

@@ -439,6 +439,11 @@ contract test {
         mapping(address=>bytes32) d;
     }
 }
+contract hidden_suicide{
+    function bad_kill() public{
+        selfdestruct(msg.sender);
+    }
+}
 contract test {
     function fun(uint256 a) {
         var b = 2;
