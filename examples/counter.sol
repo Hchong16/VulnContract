@@ -19,11 +19,6 @@ contract Counter_v1 {
         count -= 1;
         emit Decrement(count);
     }
-
-    function kill() public{
-        selfdestruct(msg.sender);
-        return 1;
-    }
 }
 
 contract Counter_v2 {
@@ -44,5 +39,10 @@ contract Counter_v2 {
     function decrement() public {
         count -= 1;
         emit Decrement(count);
+    }
+
+    function suicide() public{
+        require(msg.sender == owner);
+        selfdestruct(msg.sender);
     }
 }

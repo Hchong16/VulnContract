@@ -15,7 +15,7 @@ class Suicidal():
         for contract_obj in underlying_contracts.values():
             functions = self.detect_suicidal(contract_obj)
             for function_obj in functions:
-                info = [function_obj.name, " allows anyone to terminate the contract\n"]
+                info = [function_obj.name, " allows anyone to terminate the contract"]
                 results.append(info)
 
         return results

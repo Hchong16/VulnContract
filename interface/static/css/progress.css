@@ -1,0 +1,250 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Muli:400,600,700);
+
+/***************
+BODY
+***************/
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	font-size:  1em;
+	color: #231F20;
+	background-color: #F1F2F2;
+	line-height: 1.4;
+}
+
+/***************
+GENERAL STYLES
+***************/
+
+/*** Bold, Italic, Underline, Superscript ***/
+
+body b {
+	font-weight: bold;
+}
+
+body i {
+	font-style: italic;
+}
+
+body strong {
+	font-weight: bold;
+}
+
+body em {
+	font-style: italic;
+}
+
+body u, .underline {
+	text-decoration: underline;
+}
+
+body sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+/*** Link Styles ***/
+a:hover {
+	text-decoration: underline;
+}
+
+/*** Images ***/
+
+img {
+	max-width: 100%;
+	display: inline-block;
+}
+
+/***************
+LAYOUT
+***************/
+
+/*** Box Sizing ***/
+
+* { 
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.container {
+	position: relative;
+	margin: 0 5%;
+}
+
+/*** Clearing Floats ***/
+
+.clr:after { 
+	content: ""; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+
+/***************
+PAGE CONTENT
+***************/
+
+#page_content {
+	margin: 60px 0;
+}
+
+#page_title {
+	margin: 0;
+	font-family: 'Muli', sans-serif;
+	font-size: 1.875em;
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.content_indent {
+	padding: 0 20px;
+}
+
+.content_section {
+	margin-top: 40px;
+}
+
+.content_spacer {
+	margin-top: 20px;
+}
+
+.section_box {
+	padding: 20px;
+	background-color: #DDDCDF;
+}
+
+/***************
+TEXT FORMATTTING
+***************/
+
+/*** Paragraphs ***/
+
+.text_formatting h3 {
+	margin: 0 0 25px 0;
+	font-family: 'Muli', sans-serif;
+	font-size: 1.250em;
+	font-weight: 700;
+	line-height: 1.250;
+}
+
+.text_formatting p {
+	margin-bottom: 25px;
+}
+
+.text_formatting p:last-child {
+	margin-bottom: 0;
+}
+
+/*** Lists ***/
+
+.text_formatting ul {
+	margin: 0 0 25px 0;
+	padding-left: 15px;
+	list-style-type: disc;
+	list-style-position: outside;
+}
+
+.text_formatting ol {
+	margin: 0 0 25px 0;
+	padding-left: 15px;
+	list-style-type: decimal;
+	list-style-position: outside;
+}
+
+.text_formatting li {
+	padding-bottom: 8px;
+}
+
+.text_formatting ul li:last-child, .text_formatting ol li:last-child {
+	padding-bottom: 0;
+}
+
+/*** Images ***/
+
+.text_formatting .image_wrapper {
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+.text_formatting .image_wrapper .caption {
+	margin-top: 10px;
+	font-size: .875em;
+}
+
+/***************
+1025 AND UP
+***************/
+
+@media screen and (min-width:1025px) {
+
+	/***************
+	LAYOUT
+	***************/
+
+	/*** Site Wrappers ***/
+
+	.container.container_center {
+		max-width: 1025px;
+		margin: 0 auto;
+		padding: 0 50px;
+	}
+	
+}
+
+/***************
+667 AND UNDER
+***************/
+
+@media screen and (max-width:667px) {
+
+	/***************
+	FORM
+	***************/
+	
+	.input_button {
+		width: 60%;
+		margin: 0 auto;
+		display: block;
+	}
+	
+	.choose_button {
+		margin-bottom: 20px;
+	}
+
+}
+
+/***************
+480 AND UNDER
+***************/
+
+@media screen and (max-width:480px) {
+
+	/***************
+	FORM
+	***************/
+	
+	.input_button {
+		width: 80%;
+	}
+	
+}
+
+/***************
+375 AND UNDER
+***************/
+
+@media screen and (max-width:375px) {
+
+	/***************
+	FORM
+	***************/
+	
+	.input_button {
+		width: 100%;
+	}
+	
+}

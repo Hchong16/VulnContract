@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>VulnContract</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  
+  <body>
+    <div id="page_wrapper" class="container container_center">
+      <div id="page_content">
+        <div class="content_indent">
+          <h1 id="page_title">VulnContract</h1>
+        </div>
+        <div id="information" class="content_section section_box">
+          <div class="text_formatting">
+            <h3>Overview</h3>
+            <p>This website will automate the detection of vulnerabilities for smart contracts.</p>
+            <h3>Input</h3>
+            <p>The webtool currently only supports the detection for smart contracts programmed in Solidity. Here is a list of vulnerabilities that will be identified and flagged:</p>
+            <ul>
+              <li>Suicidal Contract</li>
+            </ul>
+          </div>
+        </div> <!--End Information Header-->
+
+        <div id="form_wrapper" class="content_section content_indent">
+          <form method="POST" enctype="multipart/form-data" action="{{ url_for('save') }}">
+            <div class="form-row">
+              <div class="form-group col-md">
+                <label for="contract_language">Select Contract Language</label>
+                  <select class="form-control" id="contract_language" required>
+                    <option value="" selected disabled hidden>Choose...</option>
+                    <option value="solidity">Solidity</option>
+                    <option value="golang" disabled>Golang (To be developed)</option>
+                    <option value="rust" disabled>Rust (To be developed)</option>
+                  </select>
+              </div>
+            </div>
+
+            <!-- File Submission Selection -->            
+            <div id="choice_1_upload_file">
+              <label class="my-1 mr-2" for="submission">Upload Contract File (.sol):</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="contract_file" required>
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>   
+            </div>
+  
+            <br><button type="submit" id="btn_submit" class="btn btn-primary my-1">Run Detections</button>       
+          </form>
+        </div>
+      </div> <!--End Form Wrapper-->
+
+      <footer id="estimator_footer" class="content_section section_box">
+        <div class="text_formatting">
+          <h3>Additional Information</h3>
+          <p>This tool is still in the alpha testing phase and currently only supports contract programmed in Solidity. 
+            For further questions, please contact me at <b>hchong.16@gmail.com</b>.</p>
+      </footer> <!--End Estimator Footer-->
+    </div>
+
+    <script>
+      bsCustomFileInput.init()
+    </script>
+  </body>
+</html>
