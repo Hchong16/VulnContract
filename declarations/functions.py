@@ -29,6 +29,11 @@ class Function():
         checker2 = 0 # Tracker for 'msg'
         checker3 = 0 # Tracker for 'owner'
         for idents in self.identifiers:
+            # Edge case: If suicide or selfdestruct appears before any required statement is found, this is unprotected!
+            if (idents.name == 'suicide' or idents.name == 'selfdestruct') and checker1 == 0:
+                self.is_protected = False
+                return
+
             if idents.name == 'require' and checker2 == 0 and checker3 == 0:
                 checker1 = 1
 

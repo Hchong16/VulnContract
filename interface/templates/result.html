@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>VulnContract - Results</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  
+  <body>
+    <a href="{{ url_for('home') }}" class="btn btn-primary my-1" role="button">Home</a>
+  
+    <div id="page_wrapper" class="container container_center">
+      <div id="page_content">
+        <div class="content_indent">
+          <h1 id="page_title">VulnContract Detection Results</h1>
+        </div>
+        <div id="estimator_header" class="content_section section_box">
+          <div class="text_formatting">
+            <h3>Job Information</h3>
+            <p><strong>Contract:</strong> {{ contract }}</p>
+            <p><strong>JobID:</strong> {{ jobID }}</p>
+          </div>
+        </div> <!--End Estimator Header--> 
+    </div>
+
+    <hr>
+    {% if status == 1 %}
+      {% if error != '' %}
+        <p style="font-size: 25px;"> An error has occured! Errors are typically associated with the inputs given. Please verify before contacting us for assistance!</p>
+        <p style="color:red; font-size: 25px;">ERROR: "{{ error }}"</p>
+      {% endif %}
+    {% elif status == 0 %} <!--Flag if user manually travel to the result page-->
+        <b><p style="color: red; font-size: 25px;"> DETECTION STILL RUNNING! </p></br>
+        <b><p style="color: red; font-size: 25px;"> Please check back later for the results.</p></br>
+    {% elif status == -1 %}
+        <b><p style="color:red; font-size: 25px;"> Job ID does not exist! Please make sure the right job ID was entered!</p></b>
+    {% endif %}
+
+    <!--Display all results associated to contract-->
+    {% if error == '' and status != -1 and status != 0 %}
+      <b><p style="font-size: 25px;"> Potential Vulnerabilities/Issues: </p></b>
+      {% for result in results %}
+        <pre> The function {{ result.0 }}{{ result.1 }} </pre>
+      {% else %}
+        <pre> No vulnerabilities/issues found! </pre>
+      {% endfor %}
+    {% endif %}   
+    </div>  
+  </body>
+</html>
