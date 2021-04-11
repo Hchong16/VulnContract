@@ -28,7 +28,7 @@ Once the detection is completed, you will be transferred to the result screen. I
 All test inputs can be found in the `examples` folder.
 
 ## Video Demo
-Please find a video demonstration of the webtool here: [Youtube](https://youtu.be/dPqfdtKCCeE)
+Please find a video demonstration of the webtool here: [Youtube](https://www.youtube.com/watch?v=noqPczBkKJs)
 
 ## Documentation
 Please find design and implementation documentation here: [Google Doc](https://docs.google.com/document/d/1ChN1sSe9viZSnBZN61JOiARuszOb4u3eG0Py4BbbHfA/edit?usp=sharing)
