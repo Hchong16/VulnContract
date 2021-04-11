@@ -15,7 +15,7 @@ python3 app.py
 ```
 
 ## Usage
-Once the terminal is running the Flask application, visit http://localhost:8001/ to access the webtool. 
+Once the terminal is running the Flask application, visit http://localhost:8000/ to access the webtool. 
 
 To use the tool, please follow these steps:
 1. Select a contract language (Solidity supported. Golang and Rust planned for future release).
