@@ -11,12 +11,12 @@ from werkzeug.utils import secure_filename
 
 # [Setup Debug Log]
 logging.basicConfig(filename='./log/temp.log', level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(funcName)s:%(lineno)d:%(message)s')
-logger = logging.getLogger(name="root")
+logger = logging.getLogger(name='root')
 
 UPLOAD_FOLDER = './output'
 
 # [Setup Application]
-app = Flask(__name__, template_folder='interface/templates', static_folder="interface/static")
+app = Flask(__name__, template_folder='interface/templates', static_folder='interface/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # App route to Home Page
@@ -26,10 +26,10 @@ def home():
 
     # Record User IP visiting webtool
     ip_addr = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    with open("./log/track.log", 'a') as f:
-        f.write("(Home) Requester IP: {} on {}\n".format(ip_addr, today))    
+    with open('./log/track.log', 'a') as f:
+        f.write('(Home) Requester IP: {} on {}\n'.format(ip_addr, today))    
     
-    return render_template("main.html")
+    return render_template('main.html')
 
 # App route to save input files.
 @app.route('/save', methods = ['POST'])
@@ -59,12 +59,12 @@ def save():
         if response:
             return response
     else: # Prevent user from accessing this route manually.
-        return "Error: Invalid Access"
+        return 'Error: Invalid Access'
 
 @app.route('/progress', methods = ['POST'])
 def progress():
     time.sleep(3)
-    directory = request.get_json()["directory"]
+    directory = request.get_json()['directory']
 
     done, error = 0, 0
     status_path = directory + '/' + 'status.txt'
@@ -76,30 +76,36 @@ def progress():
         done = int(status.get('Status', 'done'))
         error = int(status.get('Status', 'error'))
         
-    return # Job completed
+    return "Done" # Job completed
 
 @app.route('/result')
 def result():
     directory = request.args.get('directory')
     contract = request.args.get('contract')
     job_id = request.args.get('jobID') 
-    today = time.strftime("%Y-%m-%d:%H%M%S")
-      
-    # Parse detection log for output data.
-    detection_log = directory + "/log/detection.log"
-       
-    results = []
+    today = time.strftime('%Y-%m-%d:%H%M%S')
+
+    impacted_func = []
+    vuln_description = []
 
     # Record User IP initiating detection
     ip_addr = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    with open("./log/track.log", 'a') as f:
+    with open('./log/track.log', 'a') as f:
         f.write("(Detection) Requester IP: {} on {}\n".format(ip_addr, today)) 
     
     try: 
-        # [To do] Parse results.
-        pass
+        # Parse results file into two lists, one for all impacted functions and one for each description
+        with open(directory + '/results.txt', 'r') as f:
+            for line in f:
+                # Convert line to list
+                data = line.split(',')
+                impacted_func.append(data[0])
+                vuln_description.append(data[1])
+
+        # Zip the impacted_func and vuln_description to be able to iterate one singular list on the Django template
+        results = zip(impacted_func, vuln_description)
     except:
-        pass
+        results = []
 
     # Grab error message if exist
     status_path = directory + '/' + 'status.txt'
@@ -110,23 +116,22 @@ def result():
         error_message = str(status_file.get('Status', 'message'))
     except:
         error_message = ''
-        pass
     
     status = 1
-    
-    return render_template("result.html", status=status, directory=directory, contract=contract, jobID=job_id, error=error_message, detection_results=results)
+
+    return render_template('result.html', status=status, directory=directory, contract=contract, jobID=job_id, error=error_message, results=results)
 
 # Function to initiate detection.py script to run scans 
 def detection(directory, solidity_file, job_id):
     command = [sys.executable, './detection.py', '--directory', directory, '--contract', solidity_file]
     
-    f = open(directory + "/log/detection.log", "a")
+    f = open(directory + '/log/detection.log', 'a')
     response = make_response(redirect('/progress'))
     pid = subprocess.Popen(command, stdout=f, stderr=f)
-    logger.debug("Launching detection in app.py with PID:{}".format(str(pid.pid)))
+    logger.debug('Launching detection in app.py with PID:{}'.format(str(pid.pid)))
     
     response = render_template('progress.html', directory=directory, contract=solidity_file, jobID=job_id)
     return response
 
-if __name__ == "__main__":
-    app.run(host="localhost", port=8001, debug=True)
+if __name__ == '__main__':
+    app.run(host='localhost', port=8001, debug=True)

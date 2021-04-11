@@ -32,35 +32,28 @@
         </div> <!--End Estimator Header--> 
     </div>
 
+    <hr>
     {% if status == 1 %}
-        {% if error != '' %}
-          <hr>
-          <br>
-          <p style="font-size: 25px;"> An error has occured! Errors are typically associated with the inputs given. Please verify before contacting us for assistance!</p>
-          <p style="color:red; font-size: 25px;">ERROR: "{{ error }}"</p>
-        {% else %}
-          <hr>
-          <p style="font-size: 25px;"> Detection results:</p>
-        {% endif %}
-      </div>
+      {% if error != '' %}
+        <p style="font-size: 25px;"> An error has occured! Errors are typically associated with the inputs given. Please verify before contacting us for assistance!</p>
+        <p style="color:red; font-size: 25px;">ERROR: "{{ error }}"</p>
+      {% endif %}
     {% elif status == 0 %} <!--Flag if user manually travel to the result page-->
-      <div>
         <b><p style="color: red; font-size: 25px;"> DETECTION STILL RUNNING! </p></br>
         <b><p style="color: red; font-size: 25px;"> Please check back later for the results.</p></br>
-      </div>
     {% elif status == -1 %}
-      <div>
         <b><p style="color:red; font-size: 25px;"> Job ID does not exist! Please make sure the right job ID was entered!</p></b>
-      </div>
     {% endif %}
-   
+
+    <!--Display all results associated to contract-->
     {% if error == '' and status != -1 and status != 0 %}
-      <!-- Display detection results from detection.log -->
-      <b><p style="font-size: 25px;"> Potential Problematic Issues: </p></b>
-      {% for line in detection_results %}
-        <pre> {{ line }} </pre>
-      {% endfor %} 
-    {% endif %}     
+      <b><p style="font-size: 25px;"> Potential Vulnerabilities/Issues: </p></b>
+      {% for result in results %}
+        <pre> The function {{ result.0 }}{{ result.1 }} </pre>
+      {% else %}
+        <pre> No vulnerabilities/issues found! </pre>
+      {% endfor %}
+    {% endif %}   
+    </div>  
   </body>
 </html>
-

@@ -34,7 +34,7 @@ def detection(directory, contract_name):
         # Write results to file
         with open(directory + '/results.txt', 'w') as f:
             for issue in output:
-                f.write(str(issue) + "\n")
+                f.write(issue[0] + "," + issue[1] + "\n")
 
         # Update status file
         status.set('Status', 'done', '1')

@@ -41,7 +41,7 @@ contract Counter_v2 {
         emit Decrement(count);
     }
 
-    function suicide() public{
+    function good_suicide() public{
         require(msg.sender == owner);
         selfdestruct(msg.sender);
     }
