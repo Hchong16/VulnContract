@@ -1,7 +1,7 @@
 """
     Imports module
 """
-from typing import Optional
+from typing import Dict, Optional
 
 class Import():
     def __init__(self, data):

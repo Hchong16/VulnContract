@@ -8,8 +8,6 @@ from declarations.functions import Function
 class Contract():
     def __init__(self, name: str, contract_data):
         self._name: Optional[str] = name
-        self._kind: Optional[str] = None
-        
         self.contract_data = contract_data
         self._functions: Dict[str] = {}
 
@@ -18,10 +16,6 @@ class Contract():
     @property
     def name(self) -> Optional[str]:
         return self._name
-
-    @property
-    def kind(self) -> Optional[str]:
-        return self._kind
 
     @property
     def functions(self) -> Dict[str, Function]:
