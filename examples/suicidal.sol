@@ -1,4 +1,5 @@
 pragma solidity 0.8.1;
+import "test" as test;
 
 contract Contract_v1{
     function protected_kill_1() public{
